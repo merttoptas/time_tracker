@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker/app/app.sign_in/sign_in_page.dart';
 import 'package:time_tracker/services/auth.dart';
-import 'home_page.dart';
+import 'package:time_tracker/services/database.dart';
+import 'home/jobs_page.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -16,7 +17,10 @@ class LandingPage extends StatelessWidget {
             if (user == null) {
               return SignInPage.create(context);
             }
-            return HomePage();
+            // ignore: missing_required_param
+            return Provider<Database>(
+              builder: (_) => FireStoreDatabase(uid: user.uid),
+                child: JobsPage());
           } else {
             return Scaffold(
               body: Center(
