@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker/app/app.sign_in/sign_in_page.dart';
+import 'package:time_tracker/app/home/screens/sign_in_page.dart';
 import 'package:time_tracker/services/auth.dart';
 import 'package:time_tracker/services/database.dart';
 import 'home/jobs_page.dart';

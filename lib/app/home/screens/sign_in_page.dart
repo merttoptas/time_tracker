@@ -4,6 +4,7 @@ import 'package:time_tracker/app/app.sign_in/email_sign_in_page.dart';
 import 'package:time_tracker/app/app.sign_in/sign_in_manager.dart';
 import 'package:time_tracker/app/app.sign_in/sign_in_botton.dart';
 import 'package:time_tracker/app/app.sign_in/social_sign_in_botton.dart';
+import 'package:time_tracker/app/home/screens/components/body.dart';
 import 'package:time_tracker/common_widget/platform_exception_alert_dialog.dart';
 import 'package:time_tracker/services/auth.dart';
 import 'package:flutter/services.dart';
@@ -82,7 +83,7 @@ class SignInPage extends StatelessWidget {
         centerTitle: true,
         elevation: 2.0,
       ),
-      body: _buildContent(context),
+      body: Body(),
       backgroundColor: Colors.grey[200],
     );
   }
