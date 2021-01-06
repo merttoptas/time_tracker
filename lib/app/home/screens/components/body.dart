@@ -3,6 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_tracker/app/home/screens/components/background.dart';
 
 class Body extends StatelessWidget {
+  const Body({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -12,42 +16,28 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "WELCOME TO EDU",
+              "LOGIN",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: size.height * 0.05),
+            SizedBox(height: size.height * 0.03),
             SvgPicture.asset(
-              "images/icons/chat.svg",
-              height: size.height * 0.45,
+              "assets/icons/login.svg",
+              height: size.height * 0.35,
             ),
-            SizedBox(height: size.height * 0.05),
-
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
- /*
+            SizedBox(height: size.height * 0.03),
+            RoundedInputField(
+              hintText: "Your Email",
+              onChanged: (value) {},
+            ),
+            RoundedPasswordField(
+              onChanged: (value) {},
+            ),
             RoundedButton(
               text: "LOGIN",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen();
-                    },
-                  ),
-                );
-              },
+              press: () {},
             ),
-            RoundedButton(
-              text: "SIGN UP",
-              color: kPrimaryLightColor,
-              textColor: Colors.black,
+            SizedBox(height: size.height * 0.03),
+            AlreadyHaveAnAccountCheck(
               press: () {
                 Navigator.push(
                   context,
@@ -59,5 +49,9 @@ class Body extends StatelessWidget {
                 );
               },
             ),
-            
-            */
+          ],
+        ),
+      ),
+    );
+  }
+}
