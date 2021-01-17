@@ -7,6 +7,7 @@ import 'package:time_tracker/app/utils/constants.dart';
 import 'package:time_tracker/common_widget/platform_alert_dialog.dart';
 import 'package:time_tracker/services/auth.dart';
 import 'package:time_tracker/services/database.dart';
+import 'empty_content.dart';
 
 class JobsPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
@@ -68,16 +69,19 @@ Widget _buildContents(BuildContext context) {
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         final jobs = snapshot.data;
-        final children = jobs
-            .map((job) => JobListTile(
-                  job: job,
-                  onTap: () => EditJobPage.show(context, job: job),
-                ))
-            .toList();
-        return ListView(children: children);
+        if (jobs.isNotEmpty) {
+          final children = jobs
+              .map((job) => JobListTile(
+                    job: job,
+                    onTap: () => EditJobPage.show(context, job: job),
+                  ))
+              .toList();
+          return ListView(children: children);
+        }
+        return EmptyContent();
       }
       if (snapshot.hasError) {
-        return Center(child: Text('Error'));
+        return Center(child: Text('Some error occurred'));
       }
       return Center(child: CircularProgressIndicator());
     },
