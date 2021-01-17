@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker/app/home/jobs/edit_job_page.dart';
+import 'package:time_tracker/app/home/jobs/job_list_tile.dart';
+import 'package:time_tracker/app/home/jobs/models/Job.dart';
+import 'package:time_tracker/app/utils/constants.dart';
 import 'package:time_tracker/common_widget/platform_alert_dialog.dart';
-import 'package:time_tracker/common_widget/platform_exception_alert_dialog.dart';
 import 'package:time_tracker/services/auth.dart';
 import 'package:time_tracker/services/database.dart';
-
-import 'models/Job.dart';
 
 class JobsPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
@@ -15,18 +15,6 @@ class JobsPage extends StatelessWidget {
       await auth.signOut();
     } catch (e) {
       print(e.toString());
-    }
-  }
-
-  void _createJob(BuildContext context) async {
-    try {
-      final database = Provider.of<Database>(context);
-      await database.createJob(Job(name: 'Blogging', ratePerHour: 10));
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialog(
-        title: 'Operation failed',
-        exception: e,
-      ).show(context);
     }
   }
 
@@ -61,8 +49,12 @@ class JobsPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _createJob(context),
+        backgroundColor: kPrimaryLightColor,
+        child: Icon(
+          Icons.add,
+          color: kPrimaryColor,
+        ),
+        onPressed: () => EditJobPage.show(context),
       ),
       body: _buildContents(context),
     );
@@ -76,7 +68,12 @@ Widget _buildContents(BuildContext context) {
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         final jobs = snapshot.data;
-        final children = jobs.map((job) => Text(job.name)).toList();
+        final children = jobs
+            .map((job) => JobListTile(
+                  job: job,
+                  onTap: () => EditJobPage.show(context, job: job),
+                ))
+            .toList();
         return ListView(children: children);
       }
       if (snapshot.hasError) {

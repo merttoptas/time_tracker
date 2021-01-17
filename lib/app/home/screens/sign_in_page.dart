@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker/app/app.sign_in/email_sign_in_form_change_notifier.dart';
-import 'package:time_tracker/app/app.sign_in/sign_in_manager.dart';
+import 'package:time_tracker/app/home/sign_in/email_sign_in_form_change_notifier.dart';
+import 'package:time_tracker/app/home/sign_in/sign_in_manager.dart';
 import 'package:time_tracker/common_widget/or_divider.dart';
 import 'package:time_tracker/common_widget/platform_exception_alert_dialog.dart';
 import 'package:time_tracker/common_widget/social_icon.dart';
@@ -22,6 +22,7 @@ class SignInPage extends StatelessWidget {
     return ChangeNotifierProvider<ValueNotifier<bool>>(
       builder: (_) => ValueNotifier<bool>(false),
       child: Consumer<ValueNotifier<bool>>(
+          // ignore: missing_required_param
           builder: (_, isLoading, __) => Provider<SignInManager>(
                 builder: (_) => SignInManager(auth: auth, isLoading: isLoading),
                 child: Consumer<SignInManager>(
@@ -81,11 +82,6 @@ class SignInPage extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: size.height * 0.03),
-            Text(
-              "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
             SizedBox(height: size.height * 0.03),
             SvgPicture.asset(
               "images/icons/signup.svg",

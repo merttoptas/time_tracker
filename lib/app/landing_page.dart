@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker/app/home/screens/sign_in_page.dart';
 import 'package:time_tracker/services/auth.dart';
 import 'package:time_tracker/services/database.dart';
-import 'home/jobs_page.dart';
+import 'home/jobs/jobs_page.dart';
 
 class LandingPage extends StatelessWidget {
   @override

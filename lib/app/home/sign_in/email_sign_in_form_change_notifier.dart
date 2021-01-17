@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker/app/app.sign_in/email_sign_in_change_model.dart';
+import 'package:time_tracker/app/home/sign_in/email_sign_in_change_model.dart';
 import 'package:time_tracker/common_widget/already_have_an_account_acheck.dart';
 import 'package:time_tracker/common_widget/rounded_button.dart';
 import 'package:time_tracker/common_widget/text_field_container.dart';
@@ -69,16 +69,14 @@ class _EmailSignInFormChangeNotifierState
     return [
       _buildEmailTextField(),
       _buildPasswordTextField(),
-
       RoundedButton(
         text: model.primaryButtonText,
-        press: model.canSubmit ? _submit : _submit,
+        press: _submit,
       ),
       AlreadyHaveAnAccountCheck(
-        login: false,
-        text: model.secondaryButtonText,
-        press: !model.isLoading ? _toggleFormType : null),
-
+          login: false,
+          text: model.secondaryButtonText,
+          press: !model.isLoading ? _toggleFormType : null),
     ];
   }
 
@@ -134,8 +132,6 @@ class _EmailSignInFormChangeNotifierState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _buildChildren()
-    );
+    return Column(children: _buildChildren());
   }
 }
