@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:time_tracker/app/app.sign_in/email_sign_in_page.dart';
+import 'package:time_tracker/app/app.sign_in/email_sign_in_form_change_notifier.dart';
 import 'package:time_tracker/app/app.sign_in/sign_in_manager.dart';
-import 'package:time_tracker/app/app.sign_in/sign_in_botton.dart';
-import 'package:time_tracker/app/app.sign_in/social_sign_in_botton.dart';
-import 'package:time_tracker/app/home/screens/components/body.dart';
+import 'package:time_tracker/common_widget/or_divider.dart';
 import 'package:time_tracker/common_widget/platform_exception_alert_dialog.dart';
+import 'package:time_tracker/common_widget/social_icon.dart';
 import 'package:time_tracker/services/auth.dart';
 import 'package:flutter/services.dart';
+import '../../../common_widget/background.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key key, @required this.manager, this.isLoading})
@@ -68,88 +69,50 @@ class SignInPage extends StatelessWidget {
     }
   }
 
-  void _signInWithEmail(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EmailSignInPage()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Time Tracker'),
-        centerTitle: true,
-        elevation: 2.0,
-      ),
-      body: Body(),
-      backgroundColor: Colors.grey[200],
-    );
+    return Scaffold(body: _buildContent(context));
   }
 
   Widget _buildContent(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(
-            height: 50.0,
-            child: _buildHeader(),
-          ),
-          SizedBox(height: 48.0),
-          SocialSignInButton(
-            assetName: 'images/google-logo.png',
-            text: 'Sign in with Google',
-            textColor: Colors.black87,
-            color: Colors.white,
-            onPressed: isLoading ? null : () => _signInWithGoogle(context),
-          ),
-          SizedBox(height: 8.0),
-          SocialSignInButton(
-            assetName: 'images/facebook-logo.png',
-            text: 'Sign in with Facebook',
-            textColor: Colors.white,
-            color: Color(0xFF334d92),
-            onPressed: isLoading ? null : () => _signInWithFacebook(context),
-          ),
-          SizedBox(height: 8.0),
-          SignInButton(
-            text: 'Sign in with email',
-            textColor: Colors.white,
-            onPressed: isLoading ? null : () => _signInWithEmail(context),
-            color: Colors.teal[700],
-          ),
-          SizedBox(height: 8.0),
-          Text(
-            'or',
-            style: TextStyle(fontSize: 14.0, color: Colors.black87),
-            textAlign: TextAlign.center,
-          ),
-          SignInButton(
-            text: 'Go anonymous',
-            textColor: Colors.black,
-            onPressed: isLoading ? null : () => _signInAnonymously(context),
-            color: Colors.lime[300],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    if (isLoading) {
-      return Center(child: CircularProgressIndicator());
-    }
-    return Text(
-      'Sign in',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 32.0,
-        fontWeight: FontWeight.w600,
-      ),
+    Size size = MediaQuery.of(context).size;
+    return  Background(
+        child: SingleChildScrollView(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: size.height * 0.03),
+            Text(
+              "LOGIN",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: size.height * 0.03),
+            SvgPicture.asset(
+              "images/icons/signup.svg",
+              height: size.height * 0.35,
+            ),
+            SizedBox(height: size.height * 0.03),
+            EmailSignInFormChangeNotifier.create(context),
+            OrDivider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SocialIcon(
+                  iconSrc: "images/icons/facebook.svg",
+                  press: isLoading ? null : () => _signInWithFacebook(context),
+                ),
+                SocialIcon(
+                  iconSrc: "images/icons/twitter.svg",
+                  press: isLoading ? null : () => _signInAnonymously(context),
+                ),
+                SocialIcon(
+                  iconSrc: "images/icons/google-plus.svg",
+                  press: isLoading ? null : () => _signInWithGoogle(context),
+                ),
+              ],
+            )
+          ],
+        )),
     );
   }
 }

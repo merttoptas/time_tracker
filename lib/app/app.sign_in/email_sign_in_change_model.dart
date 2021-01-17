@@ -42,8 +42,8 @@ class EmailSignInChangeModel with EmailAndPasswordValidators, ChangeNotifier {
 
   String get secondaryButtonText {
     return formType == EmailSignInFormType.signIn
-        ? 'Need an account? Register'
-        : 'Have an account? Sign in';
+        ? 'Need an account? '
+        : 'Have an account? ';
   }
 
   bool get canSubmit {
